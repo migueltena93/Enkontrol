@@ -1,0 +1,30 @@
+USE [Broxel]
+GO
+
+IF OBJECT_ID('SPSelEstadoCivil') IS NOT NULL
+	DROP PROCEDURE [dbo].[SPSelEstadoCivil]
+GO
+
+CREATE PROCEDURE [dbo].[SPSelEstadoCivil]
+AS
+DECLARE	@vcMessage	NVARCHAR(255)	=	''
+
+SET NOCOUNT ON
+
+	SET @vcMessage = 'ERROR- NO SE PUDIERON OBTENER LOS ESTADOS CIVILES REGISTRADOS EN LA BD.'
+
+	SELECT Id, cDescripcion
+		FROM catEstadoCivil
+		ORDER BY Id
+		
+	IF @@ERROR <> 0  GOTO ERRORES
+
+SET NOCOUNT OFF
+RETURN 0
+
+ERRORES:
+	SET NOCOUNT OFF
+	SET @vcMessage = @vcMessage + ISNULL(ERROR_MESSAGE(),'')
+	RAISERROR(@vcMessage,10,1)
+	RETURN -1
+GO

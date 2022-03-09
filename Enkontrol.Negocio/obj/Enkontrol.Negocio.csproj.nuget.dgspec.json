@@ -1,0 +1,86 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Negocio\\Enkontrol.Negocio.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Modelos\\Enkontrol.Modelos.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Modelos\\Enkontrol.Modelos.csproj",
+        "projectName": "Enkontrol.Modelos",
+        "projectPath": "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Modelos\\Enkontrol.Modelos.csproj"
+      },
+      "frameworks": {
+        "net462": {}
+      }
+    },
+    "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Negocio\\Enkontrol.Negocio.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Negocio\\Enkontrol.Negocio.csproj",
+        "projectName": "Enkontrol.Negocio",
+        "projectPath": "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Negocio\\Enkontrol.Negocio.csproj",
+        "packagesPath": "C:\\Users\\miguel.tena\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Negocio\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\miguel.tena\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net462"
+        ],
+        "sources": {
+          "http://192.168.75.220:4370/nuget/": {},
+          "http://192.168.75.23:8092/nuget": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/BroxelDev/_packaging/Broxel/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net462": {
+            "projectReferences": {
+              "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Modelos\\Enkontrol.Modelos.csproj": {
+                "projectPath": "C:\\Users\\miguel.tena\\Desktop\\Project\\Enkontrol\\Enkontrol.Modelos\\Enkontrol.Modelos.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net462": {
+          "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.123, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+﻿@model List<Enkontrol.Web.Models.Prospecto>
+
+<div class="row">
+    <div class="table-responsive col-md-12 text-center">
+        <table class="table table-striped" id="tblReg" name="tblReg" height="100%">
+            <thead style="background-color:#CDD7DE">
+                <tr>
+                    <th style="color:black">Nombre</th>
+                    <th style="color:black">Apellido Paterno</th>
+                    <th style="color:black">Apellido Materno</th>
+                    <th style="color:black">Fecha Nacimiento</th>
+                    <th style="color:black">Telefono</th>
+                    <th style="color:black">Email</th>
+                    <th style="color:black">Genero</th>
+                    <th style="color:black">Estado Civil</th>
+                    <th style="color:black"></th>
+                </tr>
+            </thead>
+            @{
+                if (Model.Count > 0)
+                {
+                    <tbody>
+                        @foreach (var item in Model.OrderBy(x => x.Id))
+                        {
+                            <tr>
+                                <td>@item.cNombre</td>
+                                <td>@item.cApellidoPaterno</td>
+                                <td>@item.cApellidoMaterno</td>
+                                <td>@item.dtFechaNacimiento.ToString("dd/MM/yyyy")</td>
+                                <td>@item.cTelefonoMovil</td>
+                                <td>@item.cEmail</td>
+                                <td>@item.Genero</td>
+                                <td>@item.EstadoCivil</td>
+                                <td><button class="btn btn-success" onclick="mostarmodalconsulta(@item.Id.ToString())" id="@item.Id.ToString()">Consultar</button></td>
+                            </tr>
+                        }
+                    </tbody>
+                }
+                else
+                {
+                    <tbody>
+                        <tr>
+                            <td colspan="3" class="text-center text-danger">NO SE ENCONTRARÓN PROSPECTOS EN LA BD</td>
+                        </tr>
+                    </tbody>
+                }
+            }
+        </table>
+    </div>
+</div>

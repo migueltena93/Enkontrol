@@ -1,0 +1,6 @@
+C:\Users\miguel.tena\Desktop\Project\Enkontrol\Enkontrol.Modelos\bin\Debug\Enkontrol.Modelos.dll
+C:\Users\miguel.tena\Desktop\Project\Enkontrol\Enkontrol.Modelos\bin\Debug\Enkontrol.Modelos.pdb
+C:\Users\miguel.tena\Desktop\Project\Enkontrol\Enkontrol.Modelos\obj\Debug\Enkontrol.Modelos.csprojAssemblyReference.cache
+C:\Users\miguel.tena\Desktop\Project\Enkontrol\Enkontrol.Modelos\obj\Debug\Enkontrol.Modelos.csproj.CoreCompileInputs.cache
+C:\Users\miguel.tena\Desktop\Project\Enkontrol\Enkontrol.Modelos\obj\Debug\Enkontrol.Modelos.dll
+C:\Users\miguel.tena\Desktop\Project\Enkontrol\Enkontrol.Modelos\obj\Debug\Enkontrol.Modelos.pdb
