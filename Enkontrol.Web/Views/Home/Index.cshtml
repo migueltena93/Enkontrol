@@ -5,11 +5,8 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" type="text/css" />
-<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
 <div style="padding-left:10px;">
-    <!--Filtro de busqueda-->
     <div class="jumbotron" data-pages="parallax">
         <div class="container-fluid container-fixed-lg col-sm-pull-12">
             <div class="col-lg-12">
@@ -40,14 +37,12 @@
             </div>
         </div>
     </div>
-    <!--Grid de carga de información-->
     <div id="grid">
         @Html.Action("_GridView")
     </div>
 </div>
 <div class="modal fade" id="modalInsertar" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
             <form id="frmNuevoProspecto" enctype="multipart/form-data" onsubmit="EnvioDatos(this, event)">
                 <div class="modal-header" style="text-align:center;">
@@ -163,10 +158,8 @@
         </div>
     </div>
 </div>
-<!--Modal Consulta-->
 <div class="modal fade" id="modalConsulta" role="dialog">
     <div class="modal-dialog">
-        <!-- Modal content-->
         <div class="modal-content">
             <form id="frmConsulta" enctype="multipart/form-data">
                 <div class="modal-header" style="text-align:center;">
@@ -297,292 +290,288 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('#tblReg').DataTable();
-    });
+        function abrirModalInsertar() {
+        limpiarmodal();
+        $('#modalInsertar').modal();
+    }
 
-    function abrirModalInsertar() {
-    limpiarmodal();
-    $('#modalInsertar').modal();
-}
+    function mostarmodalconsulta(Id) {
+        limpiarmodalconsulta();
 
-function mostarmodalconsulta(Id) {
-    limpiarmodalconsulta();
+        var formData = new FormData();
+        formData.append('Id', Id);
 
-    var formData = new FormData();
-    formData.append('Id', Id);
+        url = "@Url.Content("~/Home/ConsultarProspectoId")"
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
+                if (data.Success == true) {
 
-    url = "@Url.Content("~/Home/ConsultarProspectoId")"
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            console.log(data);
-            if (data.Success == true) {
-
-                $("#idconsulta").val(data.Info.Id);
-                $("#nombresconsulta").val(data.Info.cNombre);
-                $("#apellidopaternoconsulta").val(data.Info.cApellidoPaterno);
-                $("#apellidomaternoconsulta").val(data.Info.cApellidoMaterno);
-                $("#fechanacimientoconsuta").val('');
-                $("#telefonoconsulta").val(data.Info.cTelefonoMovil);
-                $("#emailconsulta").val(data.Info.cEmail);
-                $("#generoconsulta").val(data.Info.Genero);
-                $("#estadocivilconsulta").val(data.Info.EstadoCivil);
-                $('#modalConsulta').modal();
-            } else {
-                Swal.fire({
-                    icon: 'Error',
-                    title: 'Consulta Prospecto',
-                    text: data.Message
-                });
+                    $("#idconsulta").val(data.Info.Id);
+                    $("#nombresconsulta").val(data.Info.cNombre);
+                    $("#apellidopaternoconsulta").val(data.Info.cApellidoPaterno);
+                    $("#apellidomaternoconsulta").val(data.Info.cApellidoMaterno);
+                    $("#fechanacimientoconsuta").val('');
+                    $("#telefonoconsulta").val(data.Info.cTelefonoMovil);
+                    $("#emailconsulta").val(data.Info.cEmail);
+                    $("#generoconsulta").val(data.Info.Genero);
+                    $("#estadocivilconsulta").val(data.Info.EstadoCivil);
+                    $('#modalConsulta').modal();
+                } else {
+                    Swal.fire({
+                        icon: 'Error',
+                        title: 'Consulta Prospecto',
+                        text: data.Message
+                    });
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-function limpiarmodal() {
-    $("#nombres").val("");
-    $("#apellidopaterno").val("");
-    $("#apellidomaterno").val("");
-    $("#fechanacimiento").val("");
-    $("#telefono").val("");
-    $("#email").val("");
-    $("#GeneroNuevo").val("-- Genero --");
-    $("#EstadoCivilNuevo").val("-- Estado Civil --");
-}
+    function limpiarmodal() {
+        $("#nombres").val("");
+        $("#apellidopaterno").val("");
+        $("#apellidomaterno").val("");
+        $("#fechanacimiento").val("");
+        $("#telefono").val("");
+        $("#email").val("");
+        $("#GeneroNuevo").val("-- Genero --");
+        $("#EstadoCivilNuevo").val("-- Estado Civil --");
+    }
 
-function limpiarmodalconsulta() {
-    $("#idconsulta").val("");
-    $("#nombresconsulta").val("");
-    $("#apellidopaternoconsulta").val("");
-    $("#apellidomaternoconsulta").val("");
-    $("#fechanacimientoconsuta").val("");
-    $("#telefonoconsulta").val("");
-    $("#emailconsulta").val("");
-    $("#generoconsulta").val("-- Genero --");
-    $("#estadocivilconsulta").val("-- Estado Civil --");
-}
+    function limpiarmodalconsulta() {
+        $("#idconsulta").val("");
+        $("#nombresconsulta").val("");
+        $("#apellidopaternoconsulta").val("");
+        $("#apellidomaternoconsulta").val("");
+        $("#fechanacimientoconsuta").val("");
+        $("#telefonoconsulta").val("");
+        $("#emailconsulta").val("");
+        $("#generoconsulta").val("-- Genero --");
+        $("#estadocivilconsulta").val("-- Estado Civil --");
+    }
 
-function AgregarNuevoProspecto() {
-    Swal.fire({
-        title: '¿Deseas guardar el nuevo prospecto en la BD?',
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-    }).then((result) => {
-        if (result.isConfirmed) {
+    function AgregarNuevoProspecto() {
+        Swal.fire({
+            title: '¿Deseas guardar el nuevo prospecto en la BD?',
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            var json = obtenerdatosformularionuevo();
+                var json = obtenerdatosformularionuevo();
 
-            var formDataRes = new FormData();
-            formDataRes.append('jsonnuevoprospecto', json);
+                var formDataRes = new FormData();
+                formDataRes.append('jsonnuevoprospecto', json);
 
-            url = "@Url.Content("~/Home/NuevoProspecto")"
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formDataRes,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data.Success == false) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: data.Message
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Registro Prospecto',
-                            text: data.Message
-                        });
-                        cargarGrid();
+                url = "@Url.Content("~/Home/NuevoProspecto")"
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formDataRes,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Success == false) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: data.Message
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Registro Prospecto',
+                                text: data.Message
+                            });
+                            cargarGrid();
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#modalInsertar").modal('hide');
                     }
-                },
-                beforeSend: function () {
-                    $("#modalInsertar").modal('hide');
-                }
-            });
-        } else if (result.isDenied) {
-            Swal.fire('No se registro el prospecto', '', 'info')
-        }
-    });
-}
+                });
+            } else if (result.isDenied) {
+                Swal.fire('No se registro el prospecto', '', 'info')
+            }
+        });
+    }
 
-function EnvioDatos(f, e) {
-    Swal.fire({
-        title: '¿Desea ingresar a la BD el nuevo prospecto?',
-        showCancelButton: true,
-        confirmButtonText: 'Guardar',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            e.preventDefault();
+    function EnvioDatos(f, e) {
+        Swal.fire({
+            title: '¿Desea ingresar a la BD el nuevo prospecto?',
+            showCancelButton: true,
+            confirmButtonText: 'Guardar',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                e.preventDefault();
 
-            var datosFormGuardar = stringToObject(serialize(f, e));
-            var odtJSON = JSON.stringify(datosFormGuardar);
-            var formData = new FormData();
-            formData.append('nuevoprospectoJSON', odtJSON);
-        }
-    });
-};
+                var datosFormGuardar = stringToObject(serialize(f, e));
+                var odtJSON = JSON.stringify(datosFormGuardar);
+                var formData = new FormData();
+                formData.append('nuevoprospectoJSON', odtJSON);
+            }
+        });
+    };
 
-function obtenerdatosformularionuevo() {
-    var formData = new FormData();
-    formData.append('cNombre', $("#nombres").val());
-    formData.append('cApellidoPaterno', $("#apellidopaterno").val());
-    formData.append('cApellidoMaterno', $("#apellidomaterno").val());
-    formData.append('dtFechaNacimiento', $("#fechanacimiento").val());
-    formData.append('cTelefonoMovil', $("#telefono").val());
-    formData.append('cEmail', $("#email").val());
-    formData.append('Genero', $("#GeneroNuevo").val());
-    formData.append('EstadoCivil', $("#EstadoCivilNuevo").val());
+    function obtenerdatosformularionuevo() {
+        var formData = new FormData();
+        formData.append('cNombre', $("#nombres").val());
+        formData.append('cApellidoPaterno', $("#apellidopaterno").val());
+        formData.append('cApellidoMaterno', $("#apellidomaterno").val());
+        formData.append('dtFechaNacimiento', $("#fechanacimiento").val());
+        formData.append('cTelefonoMovil', $("#telefono").val());
+        formData.append('cEmail', $("#email").val());
+        formData.append('Genero', $("#GeneroNuevo").val());
+        formData.append('EstadoCivil', $("#EstadoCivilNuevo").val());
 
-    var object = {};
-    formData.forEach((value, key) => object[key] = value);
-    var json = JSON.stringify(object);
-    return json;
-}
+        var object = {};
+        formData.forEach((value, key) => object[key] = value);
+        var json = JSON.stringify(object);
+        return json;
+    }
 
-function cargarGrid() {
+    function cargarGrid() {
 
-    var formData = new FormData();
-    formData.append('filtro', $("#filtro").val());
-    formData.append('gen', $("#Genero").val());
-    formData.append('estadocivil', $("#EstadoCivil").val());
+        var formData = new FormData();
+        formData.append('filtro', $("#filtro").val());
+        formData.append('gen', $("#Genero").val());
+        formData.append('estadocivil', $("#EstadoCivil").val());
 
-    url = "@Url.Content("~/Home/_GridView")"
-    $.ajax({
-        url: url,
-        type: 'POST',
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            $("#grid").html(data);
-        }
-    });
+        url = "@Url.Content("~/Home/_GridView")"
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#grid").html(data);
+            }
+        });
 
-    $("#filtro").val("");
-    $("#Genero").val("0");
-    $("#EstadoCivil").val("0");
-}
+        $("#filtro").val("");
+        $("#Genero").val("0");
+        $("#EstadoCivil").val("0");
+    }
 
-function ActualizarProspecto() {
-    Swal.fire({
-        title: '¿Deseas actualizar la información del prospecto en la BD?',
-        showCancelButton: true,
-        confirmButtonText: 'Actualizar',
-    }).then((result) => {
-        if (result.isConfirmed) {
+    function ActualizarProspecto() {
+        Swal.fire({
+            title: '¿Deseas actualizar la información del prospecto en la BD?',
+            showCancelButton: true,
+            confirmButtonText: 'Actualizar',
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            var json = obtenerdatosformularioactualizar();
+                var json = obtenerdatosformularioactualizar();
 
-            var formData = new FormData();
-            formData.append('jsonactualizar', json);
+                var formData = new FormData();
+                formData.append('jsonactualizar', json);
 
-            url = "@Url.Content("~/Home/ActualizarProspectoId")"
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data.Success == true) {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Actualizar Prospecto',
-                            text: data.Message
-                        });
-                        limpiarmodalconsulta();
-                        cargarGrid();
-                    } else {
-                        Swal.fire({
-                            icon: 'Error',
-                            title: 'Actualizar Prospecto',
-                            text: data.Message
-                        });
-                        limpiarmodalconsulta();
+                url = "@Url.Content("~/Home/ActualizarProspectoId")"
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Success == true) {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Actualizar Prospecto',
+                                text: data.Message
+                            });
+                            limpiarmodalconsulta();
+                            cargarGrid();
+                        } else {
+                            Swal.fire({
+                                icon: 'Error',
+                                title: 'Actualizar Prospecto',
+                                text: data.Message
+                            });
+                            limpiarmodalconsulta();
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#modalConsulta").modal('hide');
                     }
-                },
-                beforeSend: function () {
-                    $("#modalConsulta").modal('hide');
-                }
-            });
-        } else if (result.isDenied) {
-            Swal.fire('No se actualizo el prospecto', '', 'info')
-        }
-    });
-}
+                });
+            } else if (result.isDenied) {
+                Swal.fire('No se actualizo el prospecto', '', 'info')
+            }
+        });
+    }
 
-function EliminarProspecto() {
-    Swal.fire({
-        title: '¿Deseas eliminar el prospecto en la BD?',
-        showCancelButton: true,
-        confirmButtonText: 'Eliminar',
-    }).then((result) => {
-        if (result.isConfirmed) {
+    function EliminarProspecto() {
+        Swal.fire({
+            title: '¿Deseas eliminar el prospecto en la BD?',
+            showCancelButton: true,
+            confirmButtonText: 'Eliminar',
+        }).then((result) => {
+            if (result.isConfirmed) {
 
-            var formData = new FormData();
-            formData.append('Id', $("#idconsulta").val());
+                var formData = new FormData();
+                formData.append('Id', $("#idconsulta").val());
 
-            url = "@Url.Content("~/Home/EliminarProspectoId")"
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (data) {
-                    console.log(data);
-                    if (data.Success == true) {
-                        Swal.fire({
-                            icon: 'info',
-                            title: 'Eliminar Prospecto',
-                            text: data.Message
-                        });
-                        limpiarmodalconsulta();
-                        cargarGrid();
-                    } else {
-                        Swal.fire({
-                            icon: 'Error',
-                            title: 'Eliminar Prospecto',
-                            text: data.Message
-                        });
-                        limpiarmodalconsulta();
+                url = "@Url.Content("~/Home/EliminarProspectoId")"
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Success == true) {
+                            Swal.fire({
+                                icon: 'info',
+                                title: 'Eliminar Prospecto',
+                                text: data.Message
+                            });
+                            limpiarmodalconsulta();
+                            cargarGrid();
+                        } else {
+                            Swal.fire({
+                                icon: 'Error',
+                                title: 'Eliminar Prospecto',
+                                text: data.Message
+                            });
+                            limpiarmodalconsulta();
+                        }
+                    },
+                    beforeSend: function () {
+                        $("#modalConsulta").modal('hide');
                     }
-                },
-                beforeSend: function () {
-                    $("#modalConsulta").modal('hide');
-                }
-            });
-        } else if (result.isDenied) {
-            Swal.fire('No se elimino el prospecto', '', 'info')
-        }
-    });
-}
+                });
+            } else if (result.isDenied) {
+                Swal.fire('No se elimino el prospecto', '', 'info')
+            }
+        });
+    }
 
-function obtenerdatosformularioactualizar() {
-    var formData = new FormData();
-    formData.append('Id', $("#idconsulta").val());
-    formData.append('cNombre', $("#nombresconsulta").val());
-    formData.append('cApellidoPaterno', $("#apellidopaternoconsulta").val());
-    formData.append('cApellidoMaterno', $("#apellidomaternoconsulta").val());
-    formData.append('dtFechaNacimiento', $("#fechanacimientoconsuta").val());
-    formData.append('cTelefonoMovil', $("#telefonoconsulta").val());
-    formData.append('cEmail', $("#emailconsulta").val());
-    formData.append('Genero', $("#generoconsulta").val());
-    formData.append('EstadoCivil', $("#estadocivilconsulta").val());
+    function obtenerdatosformularioactualizar() {
+        var formData = new FormData();
+        formData.append('Id', $("#idconsulta").val());
+        formData.append('cNombre', $("#nombresconsulta").val());
+        formData.append('cApellidoPaterno', $("#apellidopaternoconsulta").val());
+        formData.append('cApellidoMaterno', $("#apellidomaternoconsulta").val());
+        formData.append('dtFechaNacimiento', $("#fechanacimientoconsuta").val());
+        formData.append('cTelefonoMovil', $("#telefonoconsulta").val());
+        formData.append('cEmail', $("#emailconsulta").val());
+        formData.append('Genero', $("#generoconsulta").val());
+        formData.append('EstadoCivil', $("#estadocivilconsulta").val());
 
-    var object = {};
-    formData.forEach((value, key) => object[key] = value);
-    var json = JSON.stringify(object);
-    return json;
-}
+        var object = {};
+        formData.forEach((value, key) => object[key] = value);
+        var json = JSON.stringify(object);
+        return json;
+    }
 </script>
